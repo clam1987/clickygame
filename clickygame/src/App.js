@@ -11,7 +11,7 @@ class App extends Component{
   //setting up initial app component
   constructor(){
     super()
-
+    this.handleShuffledCharacters = this.handleShuffledCharacters.bind(this);
   }
 
   state = {
@@ -47,7 +47,7 @@ class App extends Component{
     if (this.state.score +1 > this.state.topScore) {
       this.setState({topScore: this.state.topScore +1})
     }
-    if (this.state.score+1 === this.state.maxScore) {
+    if (this.state.score +1 === this.state.maxScore) {
       this.setState({score: this.state.score +1, message: "Congrats you Win!", messageClass: "correct"})
     } else {
       this.setState({score: this.state.score +1, message: "You got it right!", messageClass: "correct"})
@@ -76,18 +76,21 @@ class App extends Component{
   handleShuffledCharacters = (name) => {
     let resetNeeded = false;
     const characters = this.state.characters.map(ch => {
-      if (ch.name === name) {
+     if(ch.name === name) {
         if (ch.isClicked === false) {
           this.handleCorrectSelection()
-          return {...ch, isClicked: false}
+          return { ...ch, isClicked: true}
+        }else{
+          resetNeeded = true
+          return { ...ch, isClicked: false}
         }
       }
-      return ch;
+      return ch
     })
 
     if (resetNeeded) {
       this.setState({
-        character: this.shuffle(this.IncorrectSelection()),
+        character: this.shuffle(this.handleIncorrectSelection()),
         messageClass: "incorrect"
       })
     } else {
@@ -112,7 +115,7 @@ class App extends Component{
       <div className="App">
         <Navbar 
           score={this.state.score}
-          topScore={this.state.topScore}
+          topscore={this.state.topScore}
           message={this.state.message}
           messageClass={this.state.messageClass}
         />

@@ -7,7 +7,7 @@ const Item = ({name, image, onClick}) =>
         src={image}
         alt={name}
         name={name}
-        onClick={ () => onClick(name) }
+        onClick={() => onClick(name) }
     />;
 
 
