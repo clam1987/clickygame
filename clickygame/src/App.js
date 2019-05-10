@@ -23,12 +23,86 @@ class App extends Component{
     characters: arrowverse
   }
 
+  shuffle = (array) => {
+    let currentIndex = array.length;
+    let temporaryValue;
+    let randomIndex;
+
+    //While there remains elements to shuffle
+    while (0 !== currentIndex) {
+
+    //Pick a remaning element
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    //Swapping it with current Element
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+    }
+    return array;
+  }
+
+  handleCorrectSelection = () => {
+    if (this.state.score +1 > this.state.topScore) {
+      this.setState({topScore: this.state.topScore +1})
+    }
+    if (this.state.score+1 === this.state.maxScore) {
+      this.setState({score: this.state.score +1, message: "Congrats you Win!", messageClass: "correct"})
+    } else {
+      this.setState({score: this.state.score +1, message: "You got it right!", messageClass: "correct"})
+    }
+  }
+
+  handleIncorrectSelection = () => {
+    this.setState({score: 0, message: "You gon messed up son!"})
+    //reset clicked state for characters
+    const updatedCharacters = this.state.characters.map(ch => ch.isClicked === true ? { ...ch, isClicked: false} : ch)
+    return updatedCharacters;
+  }
+
+  handleResetWins = (currentCharacters) => {
+    // If current score is at max, reset the score and topscore
+    if (this.state.score +1 === this.state.maxScore) {
+      this.setState({score: 0, topScore: 0})
+      //reset clicked state for characters
+      const updatedCharacters = currentCharacters.map(ch => (true) ? { ...ch, isClicked: false} : ch)
+      return updatedCharacters;
+    } else {
+      return currentCharacters;
+    }
+  }
+
+  handleShuffledCharacters = (name) => {
+    let resetNeeded = false;
+    const characters = this.state.characters.map(ch => {
+      if (ch.name === name) {
+        if (ch.isClicked === false) {
+          this.handleCorrectSelection()
+          return {...ch, isClicked: false}
+        }
+      }
+      return ch;
+    })
+
+    if (resetNeeded) {
+      this.setState({
+        character: this.shuffle(this.IncorrectSelection()),
+        messageClass: "incorrect"
+      })
+    } else {
+      //Check game win condition before rendering characters
+      this.setState({characters: this.shuffle(this.handleResetWins(characters))})
+    }
+  }
+
   handleRenderedCharacters = () => {
     return this.state.characters.map((character) =>
       <Item
         image={character.image}
         name={character.name}
         key={character.id}
+        onClick={this.handleShuffledCharacters}
         />
     );
   }
