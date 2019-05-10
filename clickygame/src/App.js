@@ -4,6 +4,8 @@ import './App.css';
 import Navbar from "./component/NavBar/Navbar";
 import Footer from "./component/Footer/Footer";
 import Header from "./component/Header/Header";
+import Item from "./component/Item/Item";
+import arrowverse from "./arrowverse.json";
 
 class App extends Component{
   //setting up initial app component
@@ -18,16 +20,31 @@ class App extends Component{
     maxScore: 8,
     message: "Click the image to begin!",
     messageClass: "",
-    characters: characters
+    characters: arrowverse
+  }
+
+  handleRenderedCharacters = () => {
+    return this.state.characters.map((character) =>
+      <Item
+        image={character.image}
+        name={character.name}
+        key={character.id}
+        />
+    );
   }
 
   render() {
     return (
       <div className="App">
-        <Navbar />
+        <Navbar 
+          score={this.state.score}
+          topScore={this.state.topScore}
+          message={this.state.message}
+          messageClass={this.state.messageClass}
+        />
         <Header />
         <div className="Content">
-        
+          {this.handleRenderedCharacters()}
         </div>
         <Footer />
       </div>
