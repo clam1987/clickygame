@@ -4,5 +4,55 @@
         "name": "The Flash",
         "image": "assets/img/Flash.jpg",
         "isClicked": false
+    },
+
+    {
+        "id": 1,
+        "name": "Supergirl",
+        "image": "assets/img/Supergirl.jpg",
+        "isClicked": false
+    },
+
+    {
+        "id": 2,
+        "name": "Green Arrow",
+        "image": "assets/img/GreenArrow.jpg",
+        "isClicked": false
+    },
+
+    {
+        "id": 3,
+        "name": "White Canary",
+        "image": "assets/img/WhiteCanary.jpg",
+        "isClicked": false
+    },
+
+    {
+        "id": 4,
+        "name": "Black Canary",
+        "image": "assets/img/BlackCanary.jpg",
+        "isClicked": false
+    },
+
+    {
+        "id": 5,
+        "name": "Kid Flash",
+        "image": "assets/img/KidFlash.jpg",
+        "isClicked": false
+    },
+
+    {
+        "id": 6,
+        "name": "Atom",
+        "image": "assets/img/Atom.jpg",
+        "isClicked": false
+    },
+
+    {
+        "id": 7,
+        "name": "Firestorm",
+        "image":"assets/img/Firestorm.jpg",
+        "isClicked": false
     }
+
 ]
